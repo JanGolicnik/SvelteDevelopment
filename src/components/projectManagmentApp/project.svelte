@@ -1,5 +1,5 @@
 <script>
-  import CommentSection from "./commentSection.svelte";
+  import TodoSection from "./todoSection.svelte";
 
    export let name = "unnamed project";
    export let todos = [];
@@ -7,7 +7,7 @@
 
 <div class="container">
     <h1>{name}</h1>
-    <CommentSection todos={todos}/>
+    <TodoSection todos={todos}/>
 </div>
 
 <style>

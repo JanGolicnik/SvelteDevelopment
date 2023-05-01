@@ -1,6 +1,15 @@
 <script>
 
 import { onMount } from "svelte";
+import {flip} from 'svelte/animate';
+import {quintOut} from 'svelte/easing';
+  import { flush_render_callbacks } from "svelte/internal";
+import {crossfade} from 'svelte/transition';
+
+const [send, receive] = crossfade({
+    duration: d=> Math.sqrt(d*1600),
+});
+
 
 export let todos = [];
 
@@ -26,6 +35,7 @@ function add(inputEl){
 </script>
 
 <div class="container">
+
     <div class="head">
         <input type=text placeholder="still gotta do..." on:keydown={e=>{
             if(e.key == "Enter"){
@@ -33,16 +43,25 @@ function add(inputEl){
             }
         }}/>
     </div>
+
     <div class="todos">
-        {#each todos as todo (todo.id)}
-        <div class="todo {todo.completed ? "completed" : ""}">
-            <span>
+
+        {#each todos.filter(e=>!e.completed) as todo (todo.id)}
+            <div in:receive="{{key: todo.id}}" out:send="{{key: todo.id}}" animate:flip class="todo {todo.completed ? "completed" : ""}">
                 <input checked={todo.completed} type=checkbox on:change={(e)=>{todo.completed = !todo.completed;}}/>{todo.text}
-            </span>
-        </div>
-        {:else}
-        <p>nothing to do :(</p>
+            </div>
         {/each}
+
+        {#each todos.filter(e=>e.completed) as todo (todo.id)}
+            <div in:receive="{{key: todo.id}}" out:send="{{key: todo.id}}" animate:flip class="todo {todo.completed ? "completed" : ""}">
+                <input checked={todo.completed} type=checkbox on:change={(e)=>{todo.completed = !todo.completed;}}/>{todo.text}
+            </div>
+        {/each}
+
+        {#if todos.length === 0}
+            <p>nothing to do :(</p>
+        {/if}
+
     </div>
 </div>
 

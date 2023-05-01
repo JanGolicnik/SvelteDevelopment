@@ -1,6 +1,6 @@
-<script>
+<script language="typescript">
 
-	import Project from "../project.svelte";
+	import Project from "../components/projectManagmentApp/project.svelte";
 
 	let uid = 1;
 
