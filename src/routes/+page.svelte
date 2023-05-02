@@ -1,9 +1,11 @@
 <script>
   	import CuteHeaderComponent from "./cuteHeaderComponent.svelte";
 	import Projectmanagmentapp from "./projectmanagmentapp.svelte";
+	import Confetti from "./confetti.svelte";
 
 	const apps = [{id:1, name:"Project managment app (first thing)", component:Projectmanagmentapp},
-					{id:2, name:"A cute header component", component:CuteHeaderComponent}];
+					{id:2, name:"A cute header component", component:CuteHeaderComponent},
+					{id:3, name:"Confetti", component:Confetti}];
 
 	let currentApp = 1;
 
