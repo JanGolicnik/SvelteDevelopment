@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {onMount } from 'svelte';
 
     export let characters = ["*"];
@@ -18,7 +18,7 @@
     }).sort((a,b)=>a.r - b.r);
 
     onMount(()=>{
-        let frame;
+        let frame : number;
         function loop(){
             frame = requestAnimationFrame(loop);
 

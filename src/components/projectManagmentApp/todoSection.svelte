@@ -1,3 +1,7 @@
+<script context="module">
+    let uid = 1;
+</script>
+
 <script>
 
 import { onMount } from "svelte";
@@ -5,14 +9,11 @@ import {flip} from 'svelte/animate';
 
 export let todos = [];
 
-let uid = 1;
-
-
-onMount(()=>{
-	todos.forEach((t)=>{
-		t.id = uid++;
-	})
+todos.forEach((t)=>{
+    t.id = uid++;
 })
+
+console.log(todos);
 
 function add(inputEl){
     const todo = {
@@ -35,14 +36,14 @@ function add(inputEl){
         }}/>
     </div>
     <div class="todos">
-        {#each todos.filter(e=>e.completed) as todo (todo.id)}
+        {#each todos.filter(e=>{return e.completed}) as todo (todo.id)}
             <div class="todo {todo.completed ? "completed" : ""}">
                 <span>
                     <input checked={todo.completed} type=checkbox on:change={(e)=>{todo.completed = !todo.completed;}}/>{todo.text}
                 </span>
             </div>
         {/each}
-        {#each todos.filter(e=>e.completed) as todo (todo.id)}
+        {#each todos.filter(e=>{return !e.completed}) as todo (todo.id)}
             <div class="todo {todo.completed ? "completed" : ""}">
                 <span>
                     <input checked={todo.completed} type=checkbox on:change={(e)=>{todo.completed = !todo.completed;}}/>{todo.text}
